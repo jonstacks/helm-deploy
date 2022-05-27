@@ -15,14 +15,14 @@ func main() {
 		action.Fatalf("release-name is required")
 	}
 
-	chartPath := action.GetInput("chart-path")
-	if chartPath == "" {
-		action.Fatalf("chart-path is required")
+	chart := action.GetInput("chart")
+	if chart == "" {
+		action.Fatalf("chart is required")
 	}
 
 	action.Infof("Running: %s")
 
-	args := []string{"upgrade", "--install", releaseName, chartPath}
+	args := []string{"upgrade", "--install", releaseName, chart}
 	cmd := exec.Command("helm", args...)
 
 	cmdString := strings.Join(args, " ")
