@@ -1,0 +1,21 @@
+name: 'Helm Deploy'
+description: 'Installs/Upgrades a Helm Release'
+options:
+  chart:
+    description: 'Name or Path to the chart'
+    required: true
+  release-name:
+    description: 'Name of the release'
+    required: true
+  sets:
+    description: 'A space delimited list of Helm chart sets'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+  - name: Helm Install/Upgrade
+    id: deploy
+    run: go run main.go
+    shell: bash
+    working-directory: ${{ github.action_path }}
