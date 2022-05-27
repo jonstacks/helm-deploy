@@ -1,8 +1,8 @@
 package main
 
 import (
+	"os"
 	"os/exec"
-	"strings"
 
 	"github.com/sethvargo/go-githubactions"
 )
@@ -20,15 +20,15 @@ func main() {
 		action.Fatalf("chart is required")
 	}
 
-	action.Infof("Running: %s")
-
 	args := []string{"upgrade", "--install", releaseName, chart}
 	cmd := exec.Command("helm", args...)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
 
-	cmdString := strings.Join(args, " ")
-	action.Infof("Running: helm %s", cmdString)
+	action.Infof("Running: %s", cmd.String())
 
 	if err := cmd.Run(); err != nil {
+		cmd.CombinedOutput()
 		action.Fatalf("helm upgrade failed: %s", err)
 	}
 }
