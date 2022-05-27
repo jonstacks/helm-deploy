@@ -7,8 +7,36 @@ inputs:
   release-name:
     description: 'Name of the release'
     required: true
+
+  atomic:
+    description: 'Whether to perform an atomic upgrade'
+    required: false
+  cleanup-on-fail:
+    description: 'Whether to cleanup the release on failure'
+    required: false
+  create-namespace:
+    description: 'Create the namespace if it does not exist'
+    required: false
+  debug:
+    description: 'Enable helm debug'
+    required: false
+  dry-run:
+    description: 'Enable Helm dry run'
+    required: false
+  kube-context:
+    description: 'Kube context to use'
+    required: false
+  namespace:
+    description: 'Namespace to install the release into'
+    required: false
   sets:
     description: 'A space delimited list of Helm chart sets'
+    required: false
+  timeout:
+    description: 'Timeout for the Helm command in Golang duration format. Ex: 20m, 1h, etc.'
+    required: false
+  wait:
+    description: 'Wait for the release to be ready'
     required: false
 
 runs:

@@ -13,8 +13,8 @@ func parseBool(action *githubactions.Action, name string) bool {
 	return action.GetInput(name) == "true"
 }
 
-func parseStringSlice(action *githubactions.Action, name string) []string {
-	return strings.Split(action.GetInput(name), ",")
+func parseStringSlice(action *githubactions.Action, name, delimiter string) []string {
+	return strings.Split(action.GetInput(name), delimiter)
 }
 
 type Config struct {
@@ -50,9 +50,9 @@ func NewFromInputs(action *githubactions.Action) (Config, error) {
 	c.Force = parseBool(action, "force")
 	c.KubeContext = action.GetInput("kube-context")
 	c.Namespace = action.GetInput("namespace")
-	c.Sets = parseStringSlice(action, "sets")
+	c.Sets = parseStringSlice(action, "sets", " ")
 	c.Timeout = action.GetInput("timeout")
-	c.Values = parseStringSlice(action, "values")
+	c.Values = parseStringSlice(action, "values", ",")
 
 	c.ReleaseName = action.GetInput("release-name")
 	if c.ReleaseName == "" {
@@ -109,7 +109,7 @@ func (c Config) ToArgs() []string {
 	if c.Sets != nil {
 		for _, set := range c.Sets {
 			if set != "" {
-				args = append(args, "--set", set)
+				args = append(args, "--set", strings.TrimSpace(set))
 			}
 		}
 	}
@@ -121,7 +121,7 @@ func (c Config) ToArgs() []string {
 	if c.Values != nil {
 		for _, value := range c.Values {
 			if value != "" {
-				args = append(args, "--values", value)
+				args = append(args, "--values", strings.TrimSpace(value))
 			}
 		}
 	}

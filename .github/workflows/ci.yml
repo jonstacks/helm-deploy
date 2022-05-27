@@ -25,3 +25,6 @@ jobs:
         debug: true
         wait: true
         timeout: 10m
+        sets: >
+          service.type=ClusterIP
+          myValue=test
