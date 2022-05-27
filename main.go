@@ -7,6 +7,15 @@ import (
 	"github.com/sethvargo/go-githubactions"
 )
 
+type Config struct {
+	ReleaseName string
+	Chart       string
+}
+
+func NewFromInputs(action *githubactions.Action) Config {
+
+}
+
 func main() {
 	action := githubactions.New()
 
