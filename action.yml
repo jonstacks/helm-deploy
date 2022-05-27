@@ -12,13 +12,5 @@ inputs:
     required: false
 
 runs:
-  using: 'composite'
-  steps:
-  - uses: actions/setup-go@v3
-    with:
-      go-version: '1.18'
-  - name: Helm Install/Upgrade
-    id: deploy
-    run: go run main.go
-    shell: bash
-    working-directory: ${{ github.action_path }}
+  using: node16
+  main: invoke-binary.js
