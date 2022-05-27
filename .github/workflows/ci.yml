@@ -19,3 +19,9 @@ jobs:
       with:
         release-name: 'test-release'
         chart: 'bitnami/nginx'
+        namespace: test-namespace
+        create-namespace: true
+        atomic: true
+        debug: true
+        wait: true
+        timeout: 10m
