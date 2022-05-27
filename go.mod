@@ -1,6 +1,6 @@
 module github.com/jonstacks/helm-deploy
 
-go 1.18
+go 1.17
 
 require github.com/sethvargo/go-githubactions v1.0.0
 

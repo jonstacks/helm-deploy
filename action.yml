@@ -1,6 +1,6 @@
 name: 'Helm Deploy'
 description: 'Installs/Upgrades a Helm Release'
-options:
+inputs:
   chart:
     description: 'Name or Path to the chart'
     required: true
