@@ -35,6 +35,9 @@ inputs:
   timeout:
     description: 'Timeout for the Helm command in Golang duration format. Ex: 20m, 1h, etc.'
     required: false
+  values:
+    description: 'A comma delimited list of Helm chart values'
+    required: false
   wait:
     description: 'Wait for the release to be ready'
     required: false
