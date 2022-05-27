@@ -21,10 +21,15 @@ jobs:
         chart: 'bitnami/nginx'
         namespace: test-namespace
         create-namespace: true
-        atomic: true
         debug: true
         wait: true
         timeout: 10m
         sets: >
           service.type=ClusterIP
           myValue=test
+    - if: failure()
+      run: |
+        kubectl config set-context kind-kind --namespace test-namespace
+        kubectl get pods
+        echo "==========================="
+        kubectl get pods --no-headers | awk '{print $1}' | xargs -L 1 kubectl logs
