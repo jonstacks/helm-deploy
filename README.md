@@ -1,5 +1,7 @@
 # Helm Deploy Action
 
+[![CI](https://github.com/jonstacks/helm-deploy/actions/workflows/ci.yml/badge.svg)](https://github.com/jonstacks/helm-deploy/actions/workflows/ci.yml)
+
 Rather than relying on the `helm` CLI, you can use the `helm-deploy` action to deploy a chart.
 
 ## Usage
