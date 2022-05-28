@@ -104,6 +104,14 @@ func (c Config) ToArgs() []string {
 		args = append(args, "--namespace", c.Namespace)
 	}
 
+	if c.Values != nil {
+		for _, value := range c.Values {
+			if value != "" {
+				args = append(args, "--values", strings.TrimSpace(value))
+			}
+		}
+	}
+
 	if c.Sets != nil {
 		for _, set := range c.Sets {
 			if set != "" {
@@ -114,14 +122,6 @@ func (c Config) ToArgs() []string {
 
 	if c.Timeout != "" {
 		args = append(args, "--timeout", c.Timeout)
-	}
-
-	if c.Values != nil {
-		for _, value := range c.Values {
-			if value != "" {
-				args = append(args, "--values", strings.TrimSpace(value))
-			}
-		}
 	}
 
 	args = append(args, c.ReleaseName)
