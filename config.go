@@ -45,6 +45,7 @@ func NewFromInputs(action *githubactions.Action) (Config, error) {
 	c.Debug = parseBool(action, "debug")
 	c.DependencyUpdate = parseBool(action, "dependency-update")
 	c.DryRun = parseBool(action, "dry-run")
+	c.Wait = parseBool(action, "wait")
 	c.Force = parseBool(action, "force")
 	c.KubeContext = action.GetInput("kube-context")
 	c.Namespace = action.GetInput("namespace")
@@ -90,6 +91,10 @@ func (c Config) ToArgs() []string {
 
 	if c.DryRun {
 		args = append(args, "--dry-run")
+	}
+
+	if c.Wait {
+		args = append(args, "--wait")
 	}
 
 	if c.Force {

@@ -50,3 +50,24 @@ func TestValuesFiles(t *testing.T) {
 		assert.Equal(t, []string{"upgrade", "--install", "--namespace", "mynamespace", "--values", "testdata/values.yaml", "--values", "testdata/values2.yaml", "myrelease", "mychart"}, args)
 	})
 }
+
+func TestOptionalInputs(t *testing.T) {
+	testEnv := map[string]string{
+		"INPUT_VALUES":       "testdata/values.yaml, testdata/values2.yaml",
+		"INPUT_CHART":        "mychart",
+		"INPUT_NAMESPACE":    "mynamespace",
+		"INPUT_RELEASE-NAME": "myrelease",
+		"INPUT_DRY-RUN":      "true",
+		"INPUT_ATOMIC":       "true",
+		"INPUT_WAIT":         "true",
+		"INPUT_DEBUG":        "true",
+	}
+
+	withEnv(t, testEnv, func() {
+		config, err := NewFromInputs(githubactions.New())
+		assert.NoError(t, err)
+
+		args := config.ToArgs()
+		assert.Equal(t, []string{"upgrade", "--install", "--atomic", "--debug", "--dry-run", "--wait", "--namespace", "mynamespace", "--values", "testdata/values.yaml", "--values", "testdata/values2.yaml", "myrelease", "mychart"}, args)
+	})
+}
