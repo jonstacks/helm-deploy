@@ -10,7 +10,7 @@ jobs:
         go: ['1.18', '1.19', '1.20', '1.21']
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-go@v4
+    - uses: actions/setup-go@v5
       with:
         go-version: ${{ matrix.go }}
     - run: make test
@@ -20,11 +20,11 @@ jobs:
     timeout-minutes: 30
     steps:
     - uses: actions/checkout@v4
-    - uses: azure/setup-kubectl@v3.2
-    - uses: azure/setup-helm@v3.5
+    - uses: azure/setup-kubectl@v4.0
+    - uses: azure/setup-helm@v4.2.0
       with:
         version: v3.11.1
-    - uses: engineerd/setup-kind@v0.5.0
+    - uses: engineerd/setup-kind@v0.6.2
       with:
         version: "v0.17.0" # Version of Kind to use
     - run: |
