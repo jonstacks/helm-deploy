@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 30
     steps:
     - uses: actions/checkout@v4
-    - uses: azure/setup-kubectl@v4.0
+    - uses: azure/setup-kubectl@v4.0.0
     - uses: azure/setup-helm@v4.2.0
       with:
         version: v3.11.1
