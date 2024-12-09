@@ -9,11 +9,11 @@ Rather than relying on the `helm` CLI, you can use the `helm-deploy` action to d
 ```yaml
 
 steps:
-- uses: actions/checkout@v3
-- uses: azure/setup-kubectl@v1
-- uses: azure/setup-helm@v1
+- uses: actions/checkout@v4
+- uses: azure/setup-kubectl@4
+- uses: azure/setup-helm@v4
   with:
-    version: v3.8.0
+    version: v3.8.2
 - uses: jonstacks/helm-deploy@v0
   with:
     # Required
