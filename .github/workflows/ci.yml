@@ -1,6 +1,17 @@
 name: 'CI'
 on: [push, pull_request]
 jobs:
+  nix-check:
+    name: Nix Flake Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/nix-setup
+    - run: nix flake check
+    - run: direnv exec . go test ./...
+
   test:
     name: Test (go ${{matrix.go}})
     runs-on: ubuntu-latest

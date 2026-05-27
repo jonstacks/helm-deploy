@@ -1,0 +1,34 @@
+name: "Copilot Setup Steps"
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+      - .github/actions/nix-setup/action.yaml
+      - flake.nix
+      - flake.lock
+      - .envrc
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+      - .github/actions/nix-setup/action.yaml
+      - flake.nix
+      - flake.lock
+      - .envrc
+
+jobs:
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Nix
+        uses: ./.github/actions/nix-setup
+
+      - name: Load dev shell via direnv
+        run: direnv exec . echo "Dev shell loaded successfully"
