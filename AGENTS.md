@@ -7,7 +7,7 @@ This repository ships a GitHub Action that wraps `helm upgrade --install`.
 - `action.yml` defines the published action interface.
 - `invoke-binary.js` is a small JavaScript shim that selects the vendored binary for the current platform.
 - `main.go` and `config.go` contain the action logic.
-- `main-linux-amd64-<version>` is a committed release artifact built from this repository.
+- `bin/helm-deploy-linux-<arch>` binaries are committed release artifacts built from this repository.
 
 ## Setup commands
 
@@ -19,7 +19,7 @@ This repository ships a GitHub Action that wraps `helm upgrade --install`.
 ## Code and release conventions
 
 - Keep `invoke-binary.js` as a thin launcher; put action behavior in Go.
-- When updating the vendored binary, keep the version string aligned between `Makefile` and `invoke-binary.js`.
+- When updating vendored binaries, use `make binaries` and validate with `make verify`.
 - Preserve pinned SHAs for third-party GitHub Actions unless there is a deliberate upgrade.
 
 ## Testing instructions
