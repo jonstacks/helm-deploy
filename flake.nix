@@ -17,9 +17,9 @@
             bashInteractive
             gnumake
             go_1_26
-            helm
             kind
             kubectl
+            kubernetes-helm
             nil
             nixfmt-rfc-style
             nodejs_24

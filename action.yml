@@ -38,6 +38,12 @@ inputs:
   values:
     description: 'A comma delimited list of Helm chart values'
     required: false
+  dependency-update:
+    description: 'Update dependencies before installing the chart'
+    required: false
+  force:
+    description: 'Force resource updates through a replacement strategy'
+    required: false
   wait:
     description: 'Wait for the release to be ready'
     required: false
