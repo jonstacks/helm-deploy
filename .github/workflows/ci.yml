@@ -1,32 +1,48 @@
 name: 'CI'
 on: [push, pull_request]
 jobs:
+  nix-check:
+    name: Nix Flake Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - uses: ./.github/actions/nix-setup
+    - run: nix flake check
+
   test:
     name: Test (go ${{matrix.go}})
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
       matrix:
-        go: ['1.18', '1.19', '1.20', '1.21']
+        go: ['1.26']
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-go@v5
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
       with:
         go-version: ${{ matrix.go }}
     - run: make test
+
+  verify-binaries:
+    name: Verify committed binaries
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - uses: ./.github/actions/nix-setup
+    - run: make verify
 
   test-integration:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-    - uses: actions/checkout@v4
-    - uses: azure/setup-kubectl@v4.0.0
-    - uses: azure/setup-helm@v4.2.0
-      with:
-        version: v3.11.1
-    - uses: engineerd/setup-kind@v0.6.2
-      with:
-        version: "v0.17.0" # Version of Kind to use
+    - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+    - uses: ./.github/actions/nix-setup
+    - run: kind create cluster
     - run: |
         helm repo add bitnami https://charts.bitnami.com/bitnami
         helm repo add stable https://charts.helm.sh/stable

@@ -33,3 +33,12 @@ steps:
       some.set="hello"
       another.set="world"
 ```
+
+## Development
+
+This repo includes a pinned Nix development shell for local work and coding agents.
+
+- Run `direnv allow .` once, then re-enter the repository, or start the shell with `nix develop`.
+- Validate the Nix environment with `nix flake check`.
+- Run tests with `go test ./...` or `make test`.
+- Rebuild the vendored Linux action binary with `make binaries`.
